@@ -35,8 +35,9 @@ button,.button,.btn{border-color:#bfd8e9}
   .hero .lead {animation-delay:.22s}.hero p {animation-delay:.28s}
   .hero img {animation-delay:.2s}
   @keyframes gentleEnter {from {opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .motion-reveal {transition:opacity .8s ease,transform .8s ease}
-  .motion-reveal.motion-pending {opacity:0;transform:translateY(18px)}
+  /* Each section gently enters the viewport as the reader scrolls. */
+  .motion-reveal {transition:opacity 1.25s cubic-bezier(.2,.65,.25,1),transform 1.25s cubic-bezier(.2,.65,.25,1);will-change:opacity,transform}
+  .motion-reveal.motion-pending {opacity:0;transform:translateY(38px)}
   .card,.note-card {transition:transform .25s ease,box-shadow .25s ease}
   .card:hover,.note-card:hover {transform:translateY(-3px);box-shadow:0 9px 24px rgba(49,95,131,.09)}
 }
@@ -49,10 +50,10 @@ button,.button,.btn{border-color:#bfd8e9}
     entries.forEach(function(entry){
       if(entry.isIntersecting){entry.target.classList.remove('motion-pending');observer.unobserve(entry.target)}
     });
-  },{threshold:0.06,rootMargin:'0px 0px -25px 0px'});
+  },{threshold:0.12,rootMargin:'0px 0px -65px 0px'});
   targets.forEach(function(el){
     var r=el.getBoundingClientRect();
-    if(r.top>window.innerHeight+20){el.classList.add('motion-reveal','motion-pending');observer.observe(el)}
+    if(r.top>window.innerHeight-35){el.classList.add('motion-reveal','motion-pending');observer.observe(el)}
   });
 })();
 </script></body></html>
